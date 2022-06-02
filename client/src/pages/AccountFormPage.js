@@ -56,7 +56,7 @@ export const AccountFormPage = () => {
         }).catch((erro) => {
             setApiError('Falha ao carregar a combo de usuarios.');
         });
-    }, [id]);
+    }, [number]);
 
     const onChange = (event) => {
         const { value, name } = event.target;
@@ -111,17 +111,15 @@ export const AccountFormPage = () => {
                 />
             </div>
             <div className="col-12 mb-3">
-                <label>Banco</label>
-                <textarea
-                    className="form-control"
+                <Input
                     name="bank"
+                    label="Banco"
                     placeholder="Informe o banco"
                     value={form.bank}
                     onChange={onChange}
-                ></textarea>
-                {errors.bank && (
-                    <div className="invalid-feedback d-block">{errors.bank}</div>
-                )}
+                    hasError={errors.bank && true}
+                    error={errors.bank}
+                />
             </div>
             <div className="col-12 mb-3">
                 <Input
@@ -133,22 +131,6 @@ export const AccountFormPage = () => {
                     hasError={errors.type && true}
                     error={errors.type}
                 />
-            </div>
-            <div className="col-12 mb-3">
-                <label>Usuario</label>
-                <select
-                    className="form-control"
-                    name="user"
-                    value={form.user}
-                    onChange={onChange}
-                >
-                    {users.map((user) => (
-                        <option key={user.id} value={user.id}>{user.name}</option>
-                    ))}
-                </select>
-                {errors.user && (
-                    <div className="invalid-feedback d-block">{errors.user}</div>
-                )}
             </div>
             <div className="text-center">
                 <ButtonWithProgress

@@ -34,7 +34,7 @@ export const TransactionListPage = () => {
         <div className="container">
             <h1 className="text-center">Lista de Transações</h1>
             <div className="text-center">
-                <Link className="btn btn-success" to="/accounts/new">Nova Transação</Link>
+                <Link className="btn btn-success" to="/transactions/new">Nova Transação</Link>
             </div>
             <table className="table table-striped">
                 <thead>
@@ -58,7 +58,7 @@ export const TransactionListPage = () => {
                             <td>{transaction.category}</td>
                             <td>{transaction.description}</td>
                             <td>{transaction.type}</td>
-                            <td>{account.account.bank}</td>
+                            <td>{transaction.account.bank}</td>
                             <td>
                                 <Link className="btn btn-primary"
                                     to={`/transactions/${transaction.id}`}>Editar</Link>

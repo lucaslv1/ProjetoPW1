@@ -19,7 +19,7 @@ export const TransactionFormPage = () => {
     const [errors, setErrors] = useState({});
     const [pendingApiCall, setPendingApiCall] = useState(false);
     const [apiError, setApiError] = useState();
-    const [account, setAccounts] = useState([]);
+    const [accounts, setAccounts] = useState([]);
 
     const navigate = useNavigate();
     const { id } = useParams();
@@ -128,17 +128,15 @@ export const TransactionFormPage = () => {
                 />
             </div>
             <div className="col-12 mb-3">
-                <label>Categoria</label>
-                <textarea
-                    className="form-control"
+                <Input
                     name="category"
+                    label="Categoria"
                     placeholder="Informe a categoria"
                     value={form.category}
                     onChange={onChange}
-                ></textarea>
-                {errors.category && (
-                    <div className="invalid-feedback d-block">{errors.category}</div>
-                )}
+                    hasError={errors.category && true}
+                    error={errors.category}
+                />
             </div>
             <div className="col-12 mb-3">
                 <label>Descrição</label>
