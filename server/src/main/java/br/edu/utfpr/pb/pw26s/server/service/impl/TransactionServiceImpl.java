@@ -20,4 +20,9 @@ public class TransactionServiceImpl extends CrudServiceImpl<Transaction, Long>
     protected JpaRepository<Transaction, Long> getRepository() {
         return this.transactionRepository;
     }
+
+    @Override
+    public Transaction save(Transaction entity) {
+        return transactionRepository.save(entity);
+    }
 }

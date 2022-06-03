@@ -28,7 +28,7 @@ public class Account {
     @NotNull
     private enum type {CC, CP, C};
 
-    @OneToOne
+    @OneToMany
     @JoinColumn(name= "user_id", referencedColumnName = "id")
     private User user;
 

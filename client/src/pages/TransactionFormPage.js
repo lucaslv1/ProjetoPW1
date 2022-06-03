@@ -46,15 +46,14 @@ export const TransactionFormPage = () => {
                 }).catch((erro) => {
                     setApiError('Falha ao carregar a transação');
                 });
-
-                if (form.account == null) {
-                    setForm((previousForm) => {
-                        return {
-                            ...previousForm,
-                            account: response.data[0].number,
-                        };
-                    });
-                }
+            }
+            if (form.account == null) {
+                setForm((previousForm) => {
+                    return {
+                        ...previousForm,
+                        account: response.data[0].number,
+                    };
+                });
             }
             setApiError();
         }).catch((erro) => {
@@ -152,15 +151,20 @@ export const TransactionFormPage = () => {
                 )}
             </div>
             <div className="col-12 mb-3">
-                <Input
+                <label>Tipo</label>
+                <select
+                    className="form-control"
                     name="type"
-                    label="Tipo"
-                    placeholder="Informe o tipo"
                     value={form.type}
                     onChange={onChange}
-                    hasError={errors.type && true}
-                    error={errors.type}
-                />
+                >
+                    <option key="CC" value="CC">Conta Corrente</option>
+                    <option key="CP" value="CP">Conta Poupanca</option>
+                    <option key="C" value="C">Cartao de Credito</option>
+                </select>
+                {errors.type && (
+                    <div className="invalid-feedback d-block">{errors.type}</div>
+                )}
             </div>
             <div className="col-12 mb-3">
                 <label>Conta</label>
