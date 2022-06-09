@@ -3,7 +3,6 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import ButtonWithProgress from '../components/ButtonWithProgress';
 import Input from '../components/input';
 import AccountService from '../services/AccountService';
-import UserService from '../services/UserService';
 
 
 export const AccountFormPage = () => {
@@ -11,20 +10,16 @@ export const AccountFormPage = () => {
         number: null,
         agency: null,
         bank: '',
-        type: null,
-        user: null
+        typeAccount: null
     });
     const [errors, setErrors] = useState({});
     const [pendingApiCall, setPendingApiCall] = useState(false);
     const [apiError, setApiError] = useState();
-    const [users, setUsers] = useState([]);
 
     const navigate = useNavigate();
     const { number } = useParams();
 
     useEffect(() => {
-        UserService.findAll().then((response) => {
-            setUsers(response.data);
             if (number) {
                 AccountService.findOne(number).then((response) => {
                     if (response.data) {
@@ -32,7 +27,7 @@ export const AccountFormPage = () => {
                             number: response.data.number,
                             agency: response.data.agency,
                             bank: response.data.bank,
-                            type: response.data.type,
+                            typeAccount: response.data.typeAccount,
                             user: response.data.user.id
                         });
                         setApiError();
@@ -42,20 +37,7 @@ export const AccountFormPage = () => {
                 }).catch((erro) => {
                     setApiError('Falha ao carregar a conta');
                 });
-
-                if (form.user == null) {
-                    setForm((previousForm) => {
-                        return {
-                            ...previousForm,
-                            user: response.data[0].id,
-                        };
-                    });
-                }
             }
-            setApiError();
-        }).catch((erro) => {
-            setApiError('Falha ao carregar a combo de usuarios.');
-        });
     }, [number]);
 
     const onChange = (event) => {
@@ -79,8 +61,7 @@ export const AccountFormPage = () => {
             number: form.number,
             agency: form.agency,
             bank: form.bank,
-            type: form.type,
-            user: { id: form.user }
+            typeAccount: form.typeAccount
         };
         setPendingApiCall(true);
         AccountService.save(account).then((response) => {
@@ -122,15 +103,20 @@ export const AccountFormPage = () => {
                 />
             </div>
             <div className="col-12 mb-3">
-                <Input
-                    name="type"
-                    label="Tipo"
-                    placeholder="Informe o tipo"
-                    value={form.type}
+                <label>Tipo</label>
+                <select
+                    className="form-control"
+                    name="typeAccount"
+                    value={form.typeAccount}
                     onChange={onChange}
-                    hasError={errors.type && true}
-                    error={errors.type}
-                />
+                >
+                    <option key="CC" value="CC">Conta Corrente</option>
+                    <option key="CP" value="CP">Conta Poupanca</option>
+                    <option key="C" value="C">Cartao de Credito</option>
+                </select>
+                {errors.type && (
+                    <div className="invalid-feedback d-block">{errors.typeAccount}</div>
+                )}
             </div>
             <div className="text-center">
                 <ButtonWithProgress

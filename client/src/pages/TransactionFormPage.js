@@ -47,7 +47,7 @@ export const TransactionFormPage = () => {
                     setApiError('Falha ao carregar a transação');
                 });
             }
-            if (form.account == null) {
+            if (form.account == null && response.data[0] != null) {
                 setForm((previousForm) => {
                     return {
                         ...previousForm,
@@ -105,6 +105,24 @@ export const TransactionFormPage = () => {
         <div className="container">
             <h1 className="text-center">Cadastro de Transação</h1>
             <div className="col-12 mb-3">
+                <label>Operação</label>
+                <select
+                    className="form-control"
+                    name="type"
+                    value={form.type}
+                    onChange={onChange}
+                >
+                    <option key="Withdraw" value="Withdraw">Saque</option>
+                    <option key="Deposit" value="Deposit">Deposito</option>
+                    <option key="Checks" value="Checks">Extrato</option>
+                    <option key="Payment" value="Payment">Pagamento</option>
+                    <option key="Transfer" value="Transfer">Transferencia</option>
+                </select>
+                {errors.type && (
+                    <div className="invalid-feedback d-block">{errors.type}</div>
+                )}
+            </div>
+            <div className="col-12 mb-3">
                 <Input
                     name="value"
                     label="Valor"
@@ -148,22 +166,6 @@ export const TransactionFormPage = () => {
                 ></textarea>
                 {errors.description && (
                     <div className="invalid-feedback d-block">{errors.description}</div>
-                )}
-            </div>
-            <div className="col-12 mb-3">
-                <label>Tipo</label>
-                <select
-                    className="form-control"
-                    name="type"
-                    value={form.type}
-                    onChange={onChange}
-                >
-                    <option key="CC" value="CC">Conta Corrente</option>
-                    <option key="CP" value="CP">Conta Poupanca</option>
-                    <option key="C" value="C">Cartao de Credito</option>
-                </select>
-                {errors.type && (
-                    <div className="invalid-feedback d-block">{errors.type}</div>
                 )}
             </div>
             <div className="col-12 mb-3">

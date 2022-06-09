@@ -1,5 +1,6 @@
 package br.edu.utfpr.pb.pw26s.server.model;
 
+import br.edu.utfpr.pb.pw26s.server.enums.TypeAccount;
 import lombok.*;
 
 import javax.persistence.*;
@@ -26,9 +27,9 @@ public class Account {
     private String bank;
 
     @NotNull
-    private enum type {CC, CP, C};
+    private TypeAccount typeAccount;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name= "user_id", referencedColumnName = "id")
     private User user;
 

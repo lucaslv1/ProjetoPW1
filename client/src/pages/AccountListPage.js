@@ -53,7 +53,7 @@ export const AccountListPage = () => {
                             <td>{account.number}</td>
                             <td>{account.agency}</td>
                             <td>{account.bank}</td>
-                            <td>{account.type}</td>
+                            <td>{account.typeAccount}</td>
                             <td>{account.user.name}</td>
                             <td>
                                 <Link className="btn btn-primary"
