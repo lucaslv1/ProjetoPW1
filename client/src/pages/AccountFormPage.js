@@ -10,7 +10,7 @@ export const AccountFormPage = () => {
         number: null,
         agency: null,
         bank: '',
-        typeAccount: null
+        typeAccount: 'CC'
     });
     const [errors, setErrors] = useState({});
     const [pendingApiCall, setPendingApiCall] = useState(false);
@@ -18,18 +18,18 @@ export const AccountFormPage = () => {
 
     const navigate = useNavigate();
     const { number } = useParams();
-
+    
     useEffect(() => {
             if (number) {
                 AccountService.findOne(number).then((response) => {
                     if (response.data) {
-                        setForm({
-                            number: response.data.number,
-                            agency: response.data.agency,
-                            bank: response.data.bank,
-                            typeAccount: response.data.typeAccount,
-                            user: response.data.user.id
-                        });
+                            setForm({
+                                number: response.data.number,
+                                agency: response.data.agency,
+                                bank: response.data.bank,
+                                typeAccount: response.data.typeAccount,
+                                user: response.data.user.id
+                            });
                         setApiError();
                     } else {
                         setApiError('Falha ao carregar a conta');
@@ -114,7 +114,7 @@ export const AccountFormPage = () => {
                     <option key="CP" value="CP">Conta Poupanca</option>
                     <option key="C" value="C">Cartao de Credito</option>
                 </select>
-                {errors.type && (
+                {errors.typeAccount && (
                     <div className="invalid-feedback d-block">{errors.typeAccount}</div>
                 )}
             </div>

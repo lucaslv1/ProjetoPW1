@@ -16,4 +16,6 @@ public class TransactionController extends CrudController<Transaction, Long> {
 
     @Override
     protected CrudService<Transaction, Long> getService() {return this.transactionService; }
+
+
 }

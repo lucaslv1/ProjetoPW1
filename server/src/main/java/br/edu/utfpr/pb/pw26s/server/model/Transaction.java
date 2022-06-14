@@ -1,5 +1,6 @@
 package br.edu.utfpr.pb.pw26s.server.model;
 
+import br.edu.utfpr.pb.pw26s.server.enums.TypeTransaction;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -35,7 +36,7 @@ public class Transaction {
     private String description;
 
     @NotNull
-    private enum type { Withdraw, Deposit, Checks, Payment, Transfer };
+    private TypeTransaction typeTransaction;
 
     @ManyToOne
     @JoinColumn(name= "account_number", referencedColumnName = "number")

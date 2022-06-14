@@ -57,7 +57,7 @@ export const TransactionListPage = () => {
                             <td>{transaction.dueDate}</td>
                             <td>{transaction.category}</td>
                             <td>{transaction.description}</td>
-                            <td>{transaction.type}</td>
+                            <td>{transaction.typeTransaction}</td>
                             <td>{transaction.account.bank}</td>
                             <td>
                                 <Link className="btn btn-primary"

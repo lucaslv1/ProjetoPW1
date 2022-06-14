@@ -13,7 +13,7 @@ export const TransactionFormPage = () => {
         dueDate: null,
         category: '',
         description: '',
-        type: null,
+        typeTransaction: 'Withdraw',
         account: null
     });
     const [errors, setErrors] = useState({});
@@ -36,7 +36,7 @@ export const TransactionFormPage = () => {
                             dueDate: response.data.dueDate,
                             category: response.data.category,
                             description: response.data.description,
-                            type: response.data.type,
+                            typeTransaction: response.data.typeTransaction,
                             account: response.data.account.number
                         });
                         setApiError();
@@ -84,7 +84,7 @@ export const TransactionFormPage = () => {
             dueDate: form.dueDate,
             category: form.category,
             description: form.description,
-            type: form.type,
+            typeTransaction: form.typeTransaction,
             account: { number: form.account }
         };
         setPendingApiCall(true);
@@ -108,8 +108,8 @@ export const TransactionFormPage = () => {
                 <label>Operação</label>
                 <select
                     className="form-control"
-                    name="type"
-                    value={form.type}
+                    name="typeTransaction"
+                    value={form.typeTransaction}
                     onChange={onChange}
                 >
                     <option key="Withdraw" value="Withdraw">Saque</option>
@@ -118,8 +118,8 @@ export const TransactionFormPage = () => {
                     <option key="Payment" value="Payment">Pagamento</option>
                     <option key="Transfer" value="Transfer">Transferencia</option>
                 </select>
-                {errors.type && (
-                    <div className="invalid-feedback d-block">{errors.type}</div>
+                {errors.typeTransaction && (
+                    <div className="invalid-feedback d-block">{errors.typeTransaction}</div>
                 )}
             </div>
             <div className="col-12 mb-3">
