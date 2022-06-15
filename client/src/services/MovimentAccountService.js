@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const getTransactionsTotal = () => {
-    return axios.get('/', {headers: getAuthHeader()});
+    return axios.get('/transactions/total', {headers: getAuthHeader()});
 }
 
 const MovimentAccountService = {

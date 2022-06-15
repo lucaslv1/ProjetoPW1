@@ -31,7 +31,7 @@ export const HomePage = () => {
 
     return (
         <div className="container">
-            <h1 className="text-center">Lista de Transações</h1>
+            <h1 className="text-center">Movimentações</h1>
             <table className="table table-striped">
                 <thead>
                     <tr>
@@ -43,13 +43,13 @@ export const HomePage = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {data.map((response) => (
+                    {data.map((transact) => (
                         <tr>
-                            <td>{response.data.account.number}</td>
-                            <td>{response.data.account.bank}</td>
-                            <td>{response.data.account.typeAccount}</td>
-                            <td>{response.data.typeTransaction}</td>
-                            <td>{response.data.valueTotal}</td>
+                            <td>{transact.account.number}</td>
+                            <td>{transact.account.bank}</td>
+                            <td>{transact.account.typeAccount}</td>
+                            <td>{transact.typeTransaction}</td>
+                            <td>{transact.valueTotal}</td>
                         </tr>
                     ))}
                 </tbody>

@@ -8,11 +8,12 @@ import br.edu.utfpr.pb.pw26s.server.repository.TransactionRepository;
 import br.edu.utfpr.pb.pw26s.server.service.MovimentAccountService;
 import br.edu.utfpr.pb.pw26s.server.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-
+@Service
 public class MovimentAccountsServiceImpl implements MovimentAccountService {
 
     private final TransactionRepository transactionRepository;
@@ -42,5 +43,12 @@ public class MovimentAccountsServiceImpl implements MovimentAccountService {
     public List<TransactionDTO> getTransactionsTotal(){
         return transactionRepository.getTotals();
     }
+
+    /*public Double calcInputsAndOuts(List<TransactionDTO> t){
+
+        t.map()
+
+        return null;
+    }*/
 
 }
