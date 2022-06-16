@@ -4,8 +4,13 @@ const getTransactionsTotal = () => {
     return axios.get('/transactions/total', {headers: getAuthHeader()});
 }
 
+const getAccountsTotal = () => {
+    return axios.get('/transactions/totalaccounts', {headers: getAuthHeader()});
+}
+
 const MovimentAccountService = {
-    getTransactionsTotal
+    getTransactionsTotal,
+    getAccountsTotal
 }
 
 const getAuthHeader = () => {

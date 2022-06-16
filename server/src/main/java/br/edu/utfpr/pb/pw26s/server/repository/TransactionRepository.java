@@ -16,4 +16,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
             "GROUP BY t.account, t.typeTransaction")
     List<TransactionDTO> getTotals();
 
+
+
+
 }

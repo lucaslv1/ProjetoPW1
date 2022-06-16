@@ -1,5 +1,6 @@
 package br.edu.utfpr.pb.pw26s.server.controller;
 
+import br.edu.utfpr.pb.pw26s.server.DTO.RelatorioMovimentacoesDTO;
 import br.edu.utfpr.pb.pw26s.server.DTO.TransactionDTO;
 import br.edu.utfpr.pb.pw26s.server.model.Transaction;
 import br.edu.utfpr.pb.pw26s.server.service.CrudService;
@@ -31,6 +32,10 @@ public class TransactionController extends CrudController<Transaction, Long> {
     @GetMapping("total")
     public List<TransactionDTO> getTransactionsTotal(){
         return movimentAccountService.getTransactionsTotal();
+    }
+    @GetMapping("totalaccounts")
+    public List<RelatorioMovimentacoesDTO> getAccountsTotal(){
+        return movimentAccountService.listRelatorioMovimentacoes();
     }
 
 }
