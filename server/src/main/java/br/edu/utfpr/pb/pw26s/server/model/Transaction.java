@@ -42,4 +42,7 @@ public class Transaction {
     @JoinColumn(name= "account_number", referencedColumnName = "number")
     private Account account;
 
+    @ManyToOne
+    private Account accountD;
+
 }

@@ -14,7 +14,8 @@ export const TransactionFormPage = () => {
         category: '',
         description: '',
         typeTransaction: 'Withdraw',
-        account: null
+        account: null,
+        accountD: null
     });
     const [errors, setErrors] = useState({});
     const [pendingApiCall, setPendingApiCall] = useState(false);
@@ -37,7 +38,8 @@ export const TransactionFormPage = () => {
                             category: response.data.category,
                             description: response.data.description,
                             typeTransaction: response.data.typeTransaction,
-                            account: response.data.account.number
+                            account: response.data.account.number,
+                            accountD: response.data.account.number
                         });
                         setApiError();
                     } else {
@@ -52,6 +54,14 @@ export const TransactionFormPage = () => {
                     return {
                         ...previousForm,
                         account: response.data[0].number,
+                    };
+                });
+            }
+            if (form.accountD == null && response.data[0] != null) {
+                setForm((previousForm) => {
+                    return {
+                        ...previousForm,
+                        accountD: response.data[0].number,
                     };
                 });
             }
@@ -85,7 +95,8 @@ export const TransactionFormPage = () => {
             category: form.category,
             description: form.description,
             typeTransaction: form.typeTransaction,
-            account: { number: form.account }
+            account: { number: form.account },
+            accountD: { number: form.accountD}
         };
         setPendingApiCall(true);
         TransactionService.save(transaction).then((response) => {
@@ -138,7 +149,7 @@ export const TransactionFormPage = () => {
                     name="dueDate"
                     label="Data de vencimento"
                     placeholder="Informe a data de vencimento"
-                    value={form.dueDae}
+                    value={form.dueDate}
                     onChange={onChange}
                     hasError={errors.dueDate && true}
                     error={errors.dueDate}
@@ -174,6 +185,23 @@ export const TransactionFormPage = () => {
                     className="form-control"
                     name="account"
                     value={form.account}
+                    onChange={onChange}
+                >
+                    {accounts.map((account) => (
+                        <option key={account.number} value={account.number}>{account.bank}</option>
+                    ))}
+                </select>
+                {errors.account && (
+                    <div className="invalid-feedback d-block">{errors.account}</div>
+                )}
+            </div>
+            <div className="col-12 mb-3">
+                <label>Conta Destino</label>
+                <select
+                    className="form-control"
+                    name="accountD"
+                    value={form.accountD}
+                    disabled={ (form.typeTransaction !== 'Transfer') }
                     onChange={onChange}
                 >
                     {accounts.map((account) => (

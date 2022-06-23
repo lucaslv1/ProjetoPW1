@@ -92,9 +92,20 @@ public class MovimentAccountsServiceImpl implements MovimentAccountService {
                             )
                             .mapToDouble(t -> t.getValue())
                             .sum()
+                            -
+                            transactionList.stream().filter(o ->
+                                    (o.getAccount().equals(acc) && o.getTypeTransaction() == TypeTransaction.Transfer)
+                            ).mapToDouble(t -> t.getValue())
+                                    .sum()
+                            +
+                            transactionList.stream().filter(o ->
+                                            (o.getAccountD().equals(acc) && o.getTypeTransaction() == TypeTransaction.Transfer)
+                                    ).mapToDouble(t -> t.getValue())
+                                    .sum()
             );
             listRela.add(relatorioMovimentacoes);
         }
+
 
         return listRela;
     }
