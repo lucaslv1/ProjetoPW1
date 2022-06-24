@@ -31,9 +31,7 @@ public class TransactionServiceImpl extends CrudServiceImpl<Transaction, Long>
         return this.transactionRepository;
     }
 
-    @Override
-    public Transaction save(Transaction entity)
-    {
+    public Transaction saveTransaction(Transaction entity) throws Exception {
         Double total = 0.0;
         List<RelatorioMovimentacoesDTO> lists = movimentAccountsService.listRelatorioMovimentacoes();
         for(RelatorioMovimentacoesDTO rela : lists) {
@@ -41,15 +39,26 @@ public class TransactionServiceImpl extends CrudServiceImpl<Transaction, Long>
                 total = rela.getSaldo();
             }
         }
-        try {
-            if(entity.getValue() >= total || (entity.getTypeTransaction().name() == "Deposit") ) {
+        if(entity.getTypeTransaction().name() == "Deposit") {
+            return transactionRepository.save(entity);
+        }
+        else if(entity.getValue() >= total) {
+            return transactionRepository.save(entity);
+        } else {
+            throw new Exception("Deu ruim no saldo!");
+        }
+/*
+        if(entity.getAccount().getTypeAccount().name() == "C") {
+            if(entity.getTypeTransaction().name() == "DebitPayment") {
+                return transactionRepository.save(entity);
+            } else if(entity.getTypeTransaction().name() == "CreditPayment") {
                 return transactionRepository.save(entity);
             }
-            throw new Exception();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } else if (entity.getAccount().getTypeAccount().name() == "CC") {
+
         }
-        return null;
+
+ */
     }
 
     @Override

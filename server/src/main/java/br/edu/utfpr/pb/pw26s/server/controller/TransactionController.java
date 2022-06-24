@@ -8,9 +8,11 @@ import br.edu.utfpr.pb.pw26s.server.service.MovimentAccountService;
 import br.edu.utfpr.pb.pw26s.server.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -38,4 +40,8 @@ public class TransactionController extends CrudController<Transaction, Long> {
         return movimentAccountService.listRelatorioMovimentacoes();
     }
 
+    @Override
+    public Transaction save(@RequestBody @Valid Transaction entity) throws Exception {
+        return transactionService.saveTransaction(entity);
+    }
 }

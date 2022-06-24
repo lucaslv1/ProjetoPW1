@@ -46,6 +46,7 @@ export const TransactionListPage = () => {
                         <th>Descrição</th>
                         <th>Tipo</th>
                         <th>Conta</th>
+                        <th>Conta Destino</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
@@ -59,6 +60,7 @@ export const TransactionListPage = () => {
                             <td>{transaction.description}</td>
                             <td>{transaction.typeTransaction}</td>
                             <td>{transaction.account.bank}</td>
+                            <td>{transaction.accountD?.bank}</td>
                             <td>
                                 <Link className="btn btn-primary"
                                     to={`/transactions/${transaction.id}`}>Editar</Link>

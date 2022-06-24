@@ -9,4 +9,6 @@ import java.util.List;
 public interface TransactionService extends CrudService<Transaction, Long>{
 
     List<TransactionDTO> getTotals();
+
+    public Transaction saveTransaction(Transaction entity)  throws Exception;
 }

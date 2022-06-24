@@ -43,6 +43,7 @@ public class Transaction {
     private Account account;
 
     @ManyToOne
+    @JoinColumn(name= "accountD_number")
     private Account accountD;
 
 }
