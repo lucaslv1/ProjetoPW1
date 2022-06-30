@@ -1,10 +1,9 @@
 package br.edu.utfpr.pb.pw26s.server;
 
-import br.edu.utfpr.pb.pw26s.server.model.Category;
-import br.edu.utfpr.pb.pw26s.server.model.Product;
+import br.edu.utfpr.pb.pw26s.server.enums.TypeAccount;
+import br.edu.utfpr.pb.pw26s.server.model.Account;
 import br.edu.utfpr.pb.pw26s.server.model.User;
-import br.edu.utfpr.pb.pw26s.server.repository.CategoryRepository;
-import br.edu.utfpr.pb.pw26s.server.repository.ProductRepository;
+import br.edu.utfpr.pb.pw26s.server.repository.AccountRepository;
 import br.edu.utfpr.pb.pw26s.server.repository.UserRepository;
 import br.edu.utfpr.pb.pw26s.server.security.AuthenticationResponse;
 import br.edu.utfpr.pb.pw26s.server.service.UserService;
@@ -27,17 +26,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
-public class ProductControllerTest {
-    public static final String API_PRODUCTS = "/products";
+public class AccountControllerTest {
+    public static final String API_ACCOUNTS = "/accounts";
     private static final String URL_LOGIN = "/login";
 
     @Autowired
     TestRestTemplate testRestTemplate;
 
     @Autowired
-    ProductRepository productRepository;
-    @Autowired
-    CategoryRepository categoryRepository;
+    AccountRepository accountRepository;
     @Autowired
     UserRepository userRepository;
     @Autowired
@@ -45,49 +42,48 @@ public class ProductControllerTest {
 
     @BeforeEach
     public void cleanup() {
-        productRepository.deleteAll();
-        categoryRepository.deleteAll();
         userRepository.deleteAll();
+        accountRepository.deleteAll();
         testRestTemplate.getRestTemplate().getInterceptors().clear();
     }
 
     @Test
-    public void postProduct_whenProductIsValidAndUserNotLoggedIn_receiveUnauthorized() {
-        Product product = createValidProduct();
-        ResponseEntity<Object> response = postProduct(product, Object.class);
+    public void postAccount_whenAccountIsValidAndUserNotLoggedIn_receiveUnauthorized() {
+        Account account = createValidAccount();
+        ResponseEntity<Object> response = postAccount(account, Object.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
     }
 
     @Test
-    public void postProduct_whenProductIsValidAndUserLoggedIn_receiveOk() {
+    public void postAccount_whenAccountIsValidAndUserLoggedIn_receiveOk() {
         authenticate();
-        Product product = createValidProduct();
-        ResponseEntity<Object> response = postProduct(product, Object.class);
+        Account account = createValidAccount();
+        ResponseEntity<Object> response = postAccount(account, Object.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
 
     @Test
-    public void getProduct_whenProductIdIsProvidedAndUserLoggedIn_receiveCategory() {
+    public void getAccount_whenAccountIdIsProvidedAndUserLoggedIn_receiveAccount() {
         authenticate();
-        Product product = productRepository.save(createValidProduct());
-        ResponseEntity<List<Product>> list =
-                getAllProducts(new ParameterizedTypeReference<>() {});
-        ResponseEntity<Product> response =
-                getOneProduct(list.getBody().get(0).getId(), Product.class);
-        assertThat(response.getBody().getId()).isEqualTo(product.getId());
+        Account account = accountRepository.save(createValidAccount());
+        ResponseEntity<List<Account>> accountList =
+                getAllAccounts(new ParameterizedTypeReference<>() {});
+        ResponseEntity<Account> response =
+                getOneAccount(accountList.getBody().get(0).getNumber(), Account.class);
+        assertThat(response.getBody().getNumber()).isEqualTo(account.getNumber());
     }
 
-    public <T> ResponseEntity<T> postProduct(Object request,  Class<T> responseType) {
-        return testRestTemplate.postForEntity(API_PRODUCTS, request, responseType);
+    public <T> ResponseEntity<T> postAccount(Object request,  Class<T> responseType) {
+        return testRestTemplate.postForEntity(API_ACCOUNTS, request, responseType);
     }
 
-    public <T> ResponseEntity<T> getOneProduct(Long id,  Class<T> responseType) {
-        return testRestTemplate.exchange(API_PRODUCTS + "/" + id, HttpMethod.GET,null, responseType);
+    public <T> ResponseEntity<T> getOneAccount(Long id,  Class<T> responseType) {
+            return testRestTemplate.exchange(API_ACCOUNTS + "/" + id, HttpMethod.GET,null, responseType);
     }
 
-    public <T> ResponseEntity<T> getAllProducts(ParameterizedTypeReference<T> responseType) {
+    public <T> ResponseEntity<T> getAllAccounts(ParameterizedTypeReference<T> responseType) {
         authenticate();
-        return testRestTemplate.exchange(API_PRODUCTS, HttpMethod.GET, null, responseType);
+        return testRestTemplate.exchange(API_ACCOUNTS, HttpMethod.GET, null, responseType);
     }
 
     private void authenticate() {
@@ -107,25 +103,19 @@ public class ProductControllerTest {
         }
     }
 
-    private Product createValidProduct() {
-        Product product = new Product();
-        product.setName("test-product");
-        product.setDescription("test-product-description");
-        product.setPrice(999.99);
-        product.setCategory(categoryRepository.save(createValidCategory()));
-        return product;
-    }
-
-    private Category createValidCategory() {
-        Category category = new Category();
-        category.setName("test-category");
-        return category;
-    }
-
     public User getValidLoginUser() {
         User user = new User();
         user.setUsername("test-user");
         user.setPassword("P4ssword");
         return user;
+    }
+
+    private Account createValidAccount() {
+        Account account = new Account();
+        account.setNumber(Long.valueOf(1234));
+        account.setBank("test-account");
+        account.setTypeAccount(TypeAccount.CC);
+        account.setUser(userRepository.save(getValidLoginUser()));
+        return account;
     }
 }

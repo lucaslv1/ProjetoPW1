@@ -17,26 +17,12 @@ const NavBar = (props) => {
           <Link to="/" className="navbar-brand">
             <img src={logo} width="60" alt="UTFPR" />
           </Link>
-          <ul className="navbar-nav me-auto mb-2 mb-md-0">
+          <ul className="navbar-nav me-auto mb-2 mb-md-0 ">
             <li className="nav-item">
               <NavLink to="/" className={(navData) =>
                   navData.isActive ? "nav-link active" : "nav-link"
                 }>
                 Home
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink to="/categories" className={(navData) =>
-                  navData.isActive ? "nav-link active" : "nav-link"
-                }>
-                Categorias
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink to="/products" className={(navData) =>
-                  navData.isActive ? "nav-link active" : "nav-link"
-                }>
-                Produtos
               </NavLink>
             </li>
             <li className="nav-item">

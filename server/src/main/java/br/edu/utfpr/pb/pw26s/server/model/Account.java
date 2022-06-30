@@ -11,7 +11,6 @@ import javax.validation.constraints.Size;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @EqualsAndHashCode(of = {"number"})
 public class Account {
 

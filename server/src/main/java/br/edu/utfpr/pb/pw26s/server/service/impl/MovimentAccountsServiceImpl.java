@@ -97,19 +97,9 @@ public class MovimentAccountsServiceImpl implements MovimentAccountService {
                                     (o.getAccount().equals(acc) && o.getTypeTransaction() == TypeTransaction.Transfer)
                             ).mapToDouble(t -> t.getValue())
                                     .sum()
-                            +
-                            transactionList.stream().filter(o ->
-                                            (o.getAccountD() != null && o.getAccountD().equals(acc) && o.getTypeTransaction() == TypeTransaction.Transfer)
-                                    ).mapToDouble(t -> t.getValue())
-                                    .sum()
                             -
                             transactionList.stream().filter(o ->
                                             (o.getAccount().equals(acc) && o.getTypeTransaction() == TypeTransaction.Payment)
-                                    ).mapToDouble(t -> t.getValue())
-                                    .sum()
-                            +
-                            transactionList.stream().filter(o ->
-                                            (o.getAccountD() != null && o.getAccountD().equals(acc) && o.getTypeTransaction() == TypeTransaction.Payment)
                                     ).mapToDouble(t -> t.getValue())
                                     .sum()
                             -
@@ -117,19 +107,10 @@ public class MovimentAccountsServiceImpl implements MovimentAccountService {
                                             (o.getAccount().equals(acc) && o.getTypeTransaction() == TypeTransaction.Pix)
                                     ).mapToDouble(t -> t.getValue())
                                     .sum()
-                            +
-                            transactionList.stream().filter(o ->
-                                            (o.getAccountD() != null && o.getAccountD().equals(acc) && o.getTypeTransaction() == TypeTransaction.Pix)
-                                    ).mapToDouble(t -> t.getValue())
-                                    .sum()
+
                             -
                             transactionList.stream().filter(o ->
                                             (o.getAccount().equals(acc) && o.getTypeTransaction() == TypeTransaction.DebitPayment)
-                                    ).mapToDouble(t -> t.getValue())
-                                    .sum()
-                            +
-                            transactionList.stream().filter(o ->
-                                            (o.getAccountD() != null && o.getAccountD().equals(acc) && o.getTypeTransaction() == TypeTransaction.DebitPayment)
                                     ).mapToDouble(t -> t.getValue())
                                     .sum()
                             -
@@ -139,7 +120,7 @@ public class MovimentAccountsServiceImpl implements MovimentAccountService {
                                     .sum()
                             +
                             transactionList.stream().filter(o ->
-                                            (o.getAccountD() != null && o.getAccountD().equals(acc) && o.getTypeTransaction() == TypeTransaction.CreditPayment)
+                                            (o.getAccountD() != null && o.getAccountD().equals(acc))
                                     ).mapToDouble(t -> t.getValue())
                                     .sum()
 
