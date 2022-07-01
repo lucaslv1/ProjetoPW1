@@ -34,37 +34,10 @@ public class MovimentAccountsServiceImpl implements MovimentAccountService {
         this.accountRepository = accountRepository;
         this.userRepository = userRepository;
     }
-
-    /*
-
-    @Override
-    public List<Transaction> listByType(TypeTransaction typeTransaction) {
-
-        List<Transaction> lt = transactionRepository.findAll();
-        TesteDTO tDto = new TesteDTO();
-        tDto.setN1(lt.stream()
-                .filter(o -> o.getTypeTransaction() == TypeTransaction.Withdraw)
-                .mapToDouble(TransactionDTO -> TransactionDTO.getValue())
-                .sum());
-
-        return transactionRepository.findAllByTypeTransaction(TypeTransaction.Transfer);
-    }
-
-     */
-    //CRIAR UM SERVICE PARA CALCULAR A DIFERENÇA ENTRE ENTRADAS E SAIDAS
-
+    
     public List<TransactionDTO> getTransactionsTotal(){
         return transactionRepository.getTotals();
     }
-
-    /*public Double calcInputsAndOuts(List<TransactionDTO> t){
-
-        t.map()
-
-        return null;
-    }*/
-
-
 
     public List<RelatorioMovimentacoesDTO> listRelatorioMovimentacoes(){
 
